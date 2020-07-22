@@ -82,35 +82,9 @@ const connectWeb3 = async () => {
   web3 = new Web3(web3Provider);
 };
 
-window.checkOwnership = async pokemonName => {
-  const accounts = await web3.eth.getAccounts();
-  return PokeCatcher.methods.isOwned(pokemonName).call({
-    from: accounts[0]
-  });
-};
+window.checkOwnership = async pokemonName => {};
 
-window.capture = async pokemonName => {
-  const accounts = await web3.eth.getAccounts();
-  if (
-    await PokeCatcher.methods.isOwned(pokemonName).call({
-      from: accounts[0]
-    })
-  ) {
-    alert('Este pokemon ya ha sido tomado');
-  } else {
-    try {
-      await PokeCatcher.methods
-        .capture(pokemonName)
-        .send({ from: accounts[0] });
-      alert(`Listo, ahora eres dueño de ${pokemonName}`);
-      const pokeButton = document.getElementById(pokemonName);
-      pokeButton.innerText = 'Capturado';
-      pokeButton.disabled = true;
-    } catch (err) {
-      alert(err.message);
-    }
-  }
-};
+window.capture = async pokemonName => {};
 
 window.onload = async () => {
   await connectWeb3();
