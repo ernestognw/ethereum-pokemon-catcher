@@ -6,8 +6,9 @@ let PokeCatcher;
 
 const renderPokemons = async (page, pageSize) => {
   const res = await fetch(
-    `https://pokeapi.co/api/v2/pokemon?limit=${pageSize}&offset=${(page - 1) *
-      pageSize}`
+    `https://pokeapi.co/api/v2/pokemon?limit=${pageSize}&offset=${
+      (page - 1) * pageSize
+    }`
   );
 
   const { results } = await res.json();
@@ -56,35 +57,11 @@ const renderPokemons = async (page, pageSize) => {
   }
 };
 
-const connectWeb3 = async () => {
-  let web3Provider;
+const connectWeb3 = async () => {};
 
-  // Modern dapp browsers...
-  if (window.ethereum) {
-    web3Provider = window.ethereum;
-    try {
-      // Request account access
-      await window.ethereum.enable();
-    } catch (error) {
-      // User denied account access...
-      console.error('User denied account access');
-    }
-  }
-  // Legacy dapp browsers...
-  else if (window.web3) {
-    web3Provider = window.web3.currentProvider;
-  }
-  // If no injected web3 instance is detected, fall back to Ganached
-  else {
-    web3Provider = new Web3.providers.HttpProvider('http://localhost:7545');
-  }
+window.checkOwnership = async (pokemonName) => {};
 
-  web3 = new Web3(web3Provider);
-};
-
-window.checkOwnership = async pokemonName => {};
-
-window.capture = async pokemonName => {};
+window.capture = async (pokemonName) => {};
 
 window.onload = async () => {
   await connectWeb3();
@@ -98,7 +75,7 @@ window.onload = async () => {
   // State variables
   let pokemonFilters = {
     page: 1,
-    pageSize: 20
+    pageSize: 20,
   };
 
   // Initial render
